@@ -1,16 +1,20 @@
-import { useState } from 'react'
-import './App.css'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import Images from './Images'
-import UserInfo from './UserInfo'
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import './App.css';
+// import reactLogo from './assets/react.svg';
+// import viteLogo from './assets/vite.svg';
+import Dashboard from "./Dashboard.jsx";
+import Header from "./Header.jsx";
+// import Images from './Images';
+import Login from "./Login.jsx";
+import Signup from "./Signup.jsx";
+// import UserInfo from './UserInfo';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
   return (
     <>
-      <section id="center">
+      {/* <section id="center">
         <Images></Images>
         <UserInfo name="Nasreen" course="CS418"></UserInfo>
         <UserInfo name="John" course="CS432"></UserInfo>
@@ -114,7 +118,17 @@ function App() {
       </section>
 
       <div className="ticks"></div>
-      <section id="spacer"></section>
+      <section id="spacer"></section> */}
+      <Router>
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </main>
+      </Router>
     </>
   )
 }
