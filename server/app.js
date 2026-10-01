@@ -1,7 +1,10 @@
 // console.log("Testing app");
 
+
+import cors from "cors";
 import express from 'express';
 import user from './routes/user.js';
+
 const app = express();
 const port = 8080;
 
@@ -15,6 +18,14 @@ app.listen(port, () => {
 // console.log("Testing3");
 // console.log("Testing4");
 // console.log("Testing5");
+
+//To allow cross origins
+app.use(cors({
+    origin: "*",
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type']
+}));
+
 
 app.use(express.json());
 const requestTime = function (req, res, next) {
