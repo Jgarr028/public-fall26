@@ -7,6 +7,7 @@ import Header from "./Header.jsx";
 // import Images from './Images';
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
+import VerifyOtp from "./VerifyOtp.jsx";
 // import UserInfo from './UserInfo';
 
 function App() {
@@ -126,6 +127,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/verify-otp" element={<VerifyOtp />} />
           </Routes>
         </main>
       </Router>

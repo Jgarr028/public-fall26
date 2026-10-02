@@ -38,6 +38,7 @@ export default function Login() {
             const res = await fetch(import.meta.env.VITE_API_KEY + "user/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
+                credentials: "include",
                 // send the keys your backend expects
                 body: JSON.stringify({
                     u_email: enteredEmail,
@@ -53,19 +54,28 @@ export default function Login() {
             }
 
             // your backend response is: { status, message, result: user }
-            const user = json.data ?? null;
+            // const user = json.data ?? null;
 
-            if (!user) {
-                setError("Login succeeded but user data was missing.");
-                return;
-            }
+            // if (!user) {
+            //     setError("Login succeeded but user data was missing.");
+            //     return;
+            // }
 
-            localStorage.setItem("loggedInUser", JSON.stringify(user));
+            // localStorage.setItem("loggedInUser", JSON.stringify(user));
 
+            // // Used after API success
+            // // Used inside event handlers
+            // // Used conditionally
+            // navigate("/dashboard");
+
+            // Step 2: Store email temporarily
+            localStorage.setItem("pendingOtpEmail", enteredEmail);
+
+            //  Step 3: Redirect to OTP page
             // Used after API success
             // Used inside event handlers
             // Used conditionally
-            navigate("/dashboard");
+            navigate("/verify-otp");
         } catch (err) {
             setError(err?.message || "Something went wrong");
         } finally {

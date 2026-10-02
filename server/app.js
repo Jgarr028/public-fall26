@@ -1,8 +1,10 @@
 // console.log("Testing app");
 
 
+import cookieParser from 'cookie-parser';
 import cors from "cors";
 import express from 'express';
+import session from "express-session";
 import user from './routes/user.js';
 
 const app = express();
@@ -21,13 +23,30 @@ app.listen(port, () => {
 
 //To allow cross origins
 app.use(cors({
-    origin: "*",
+    origin: "http://localhost:5173",
+    credentials: true,// added after cookie-session
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type']
 }));
-
-
 app.use(express.json());
+app.use(cookieParser());
+
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET || "secretkey",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            httpOnly: true,   // JS cannot read cookie
+            secure: false,    // true in production with HTTPS
+            sameSite: "none",
+            maxAge: 1000 * 60 * 60, // 1 hour
+        },
+    })
+);
+
+
+
 const requestTime = function (req, res, next) {
     req.requestTime = Date.now()
     next()
