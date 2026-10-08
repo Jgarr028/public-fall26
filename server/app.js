@@ -10,10 +10,6 @@ import user from './routes/user.js';
 const app = express();
 const port = 8080;
 
-app.listen(port, () => {
-    console.log(`Server is listening to ${port}`);
-})
-
 // console.log("Testing");
 // console.log("Testing1");
 // console.log("Testing2");
@@ -53,9 +49,11 @@ const requestTime = function (req, res, next) {
 }
 
 app.use(requestTime)
-app.use('/user', user)
+app.use('/users', user)
 
-
+app.listen(port, () => {
+    console.log(`Server is listening to ${port}`);
+})
 
 
 

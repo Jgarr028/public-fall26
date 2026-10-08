@@ -30,8 +30,9 @@ export function sendEmail(email, mailSubject, body) {
     };
     // Send the email
     transport.sendMail(mailOptions, function (err, result) {
+        
         if (err) {
-            console.log("Error in sending email"); // Log failure
+            console.log("Error in sending email", err); // Log failure
         } else {
             console.log("Email has been sent");    // Log success
         }

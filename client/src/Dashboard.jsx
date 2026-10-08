@@ -54,7 +54,7 @@ export default function Dashboard() {
         async function fetchUser() {
             try {
                 const response = await fetch(
-                    import.meta.env.VITE_API_KEY + "user/userprofile",
+                    import.meta.env.VITE_API_KEY + "users/userprofile",
                     {
                         method: "GET",
                         credentials: "include", // send session cookie

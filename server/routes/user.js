@@ -200,7 +200,7 @@ user.post("/login", async (req, res) => {
 
         // 2) Query user by email
         const [rows] = await connection.execute(
-            "SELECT * FROM user_info WHERE u_email =? LIMIT 1",
+            "SELECT * FROM users WHERE u_email =? LIMIT 1",
             [u_email]
         );
 

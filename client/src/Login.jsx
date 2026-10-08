@@ -34,8 +34,10 @@ export default function Login() {
 
         setLoading(true);
 
+
         try {
-            const res = await fetch(import.meta.env.VITE_API_KEY + "user/login", {
+            console.log("Fetching URL:", import.meta.env.VITE_API_KEY + "users/login");
+            const res = await fetch(import.meta.env.VITE_API_KEY + "users/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -47,6 +49,8 @@ export default function Login() {
             });
 
             const json = await res.json().catch(() => ({}));
+            console.log("Response Status:", res.status);
+            console.log("Backend Response Error:", json);
 
             if (!res.ok) {
                 setError(json?.message || "Login failed");

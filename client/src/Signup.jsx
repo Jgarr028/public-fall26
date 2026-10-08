@@ -31,7 +31,7 @@ export default function Signup({ onRegister }) {
     }
 
     async function handleSubmit(e) {
-    console.log("twas called");
+    console.log();
     e.preventDefault();
     const v = validate();
     setErrors(v);
@@ -39,7 +39,7 @@ export default function Signup({ onRegister }) {
     if (Object.keys(v).length === 0) {
         console.log("twas called 2");
         try {
-            const response = await fetch("http://localhost:3306/users", {
+            const response = await fetch("http://localhost:8080/users", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
