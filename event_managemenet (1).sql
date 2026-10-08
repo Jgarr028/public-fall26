@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `user_info`
 --
 
-CREATE TABLE `user_info` (
+CREATE TABLE `users` (
   `u_id` int(11) NOT NULL,
   `u_first_name` varchar(100) NOT NULL,
   `u_last_name` varchar(100) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE `user_info` (
   `u_password` varchar(100) NOT NULL,
   `u_is_verified` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+    
 --
 -- Dumping data for table `user_info`
 --

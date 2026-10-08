@@ -1,16 +1,22 @@
 CREATE DATABASE IF NOT EXISTS event_management;
 USE event_management;
 
+DROP TABLE users;
+DROP TABLE email_otp;
+
 CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    is_verified BOOLEAN DEFAULT FALSE,
-    verification_token VARCHAR(100) DEFAULT NULL,
-    verification_expires DATETIME DEFAULT NULL,
-    two_factor_code VARCHAR(10) DEFAULT NULL,
-    two_factor_expires DATETIME DEFAULT NULL,
+    u_id INT AUTO_INCREMENT PRIMARY KEY,
+    u_first_name VARCHAR(50) NOT NULL,
+    u_last_name VARCHAR(50) NOT NULL,
+    u_email VARCHAR(100) NOT NULL UNIQUE,
+    u_password VARCHAR(255) NOT NULL,
+    u_is_verified BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS email_otp (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    otp VARCHAR(10) NOT NULL,
+    expires_at DATETIME NOT NULL
 );

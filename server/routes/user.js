@@ -9,7 +9,7 @@ const user = Router();
 // =======================
 user.get("/", async (req, res) => {
     try {
-        const [rows] = await connection.execute("SELECT * FROM user_info");
+        const [rows] = await connection.execute("SELECT * FROM users");
 
         res.status(200).json({
             status: 200,
@@ -45,7 +45,7 @@ user.get("/userprofile", (req, res) => {
 
 user.get("/:id", async (req, res) => {
     try {
-        const [rows] = await connection.execute("SELECT * FROM user_info where u_id=?", [req.params.id]);
+        const [rows] = await connection.execute("SELECT * FROM users where u_id=?", [req.params.id]);
 
         if (rows.length == 0) {
             return res.json({
@@ -83,8 +83,8 @@ user.post("/", async (req, res) => {
 
         const hashedPassword = hashPassword(u_password);
 
-        // const [rows] = await connection.execute("Insert into user_info (u_first_name,u_last_name,u_email,u_password,u_is_verified) values (?,?,?,?,?)", [u_first_name, u_last_name, u_email, u_password, u_is_verified]);
-        const [rows] = await connection.execute("Insert into user_info (u_first_name,u_last_name,u_email,u_password,u_is_verified) values (?,?,?,?,?)", [u_first_name, u_last_name, u_email, hashedPassword, u_is_verified]);
+        // const [rows] = await connection.execute("Insert into users (u_first_name,u_last_name,u_email,u_password,u_is_verified) values (?,?,?,?,?)", [u_first_name, u_last_name, u_email, u_password, u_is_verified]);
+        const [rows] = await connection.execute("Insert into users (u_first_name,u_last_name,u_email,u_password,u_is_verified) values (?,?,?,?,?)", [u_first_name, u_last_name, u_email, hashedPassword, u_is_verified]);
         res.status(200).json({
             status: 200,
             message: "Users created successfully",
@@ -121,7 +121,7 @@ user.put("/:id", async (req, res) => {
         }
 
         const [result] = await connection.execute(
-            "UPDATE user_info SET u_first_name = ?, u_last_name = ? WHERE u_id = ?",
+            "UPDATE users SET u_first_name = ?, u_last_name = ? WHERE u_id = ?",
             [u_first_name, u_last_name, req.params.id]
         );
 
@@ -149,7 +149,7 @@ user.put("/:id", async (req, res) => {
 user.delete("/:id", async (req, res) => {
     try {
         const [result] = await connection.execute(
-            "DELETE FROM user_info WHERE u_id = ?",
+            "DELETE FROM user WHERE u_id = ?",
             [req.params.id]
         );
 
@@ -325,7 +325,7 @@ user.post("/verify-login-otp", async (req, res) => {
 
         // Fetch user and return safe user
         const [userRows] = await connection.execute(
-            "SELECT * FROM user_info WHERE u_email = ? LIMIT 1",
+            "SELECT * FROM users WHERE u_email = ? LIMIT 1",
             [email]
         );
 

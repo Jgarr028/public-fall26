@@ -30,22 +30,43 @@ export default function Signup({ onRegister }) {
         return e;
     }
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        const v = validate();
-        setErrors(v);
+    async function handleSubmit(e) {
+    console.log("twas called");
+    e.preventDefault();
+    const v = validate();
+    setErrors(v);
 
-        if (Object.keys(v).length === 0) {
-            onRegister({
-                firstName: form.firstName,
-                lastName: form.lastName,
-                uin: form.uin,
-                email: form.email.toLowerCase(),
+    if (Object.keys(v).length === 0) {
+        console.log("twas called 2");
+        try {
+            const response = await fetch("http://localhost:3306/users", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    u_id: form.uin,                  // Frontend 'uin' goes to backend 'u_id'
+                    u_first_name: form.firstName,
+                    u_last_name: form.lastName,
+                    u_email: form.email.toLowerCase(),
+                    u_password: form.password,
+                    u_is_verified: 0
+                }),
             });
 
+            const data = await response.json();
 
+            if (!response.ok) {
+                throw new Error(data.message || "Registration failed :(");
+            }
+
+            alert("Account created and saved to database.");
+            if (onRegister) onRegister(data);
+
+        } catch (err) {
+            console.error("Fetch error:", err);
+            setErrors({ submit: err.message });
         }
     }
+}
 
     return (
         <form className="signup-form" onSubmit={handleSubmit}>
